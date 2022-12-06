@@ -2,10 +2,8 @@ package com.example.meal_check;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.example.meal_check.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SignupActivity.class));
         });
 
+        binding.recipeCardBreakfast.recipeCard.setOnClickListener(view -> {
+            startActivity(new Intent(this, RecipeDetailsActivity.class));
+        });
 
 
         binding.signoutButton.setOnClickListener(view -> {

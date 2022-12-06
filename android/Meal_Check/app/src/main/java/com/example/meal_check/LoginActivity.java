@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.signupButton.setOnClickListener(view -> {
             startActivity(new Intent(this, SignupActivity.class));
+            finish();
         });
 
 
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString()).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         startActivity(new Intent(this, MainActivity.class));
+                        finish();
                     } else {
                         binding.email.setError("Invalid email or password");
                         binding.password.setError("Invalid email or password");

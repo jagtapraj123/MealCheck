@@ -7,24 +7,75 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/hello_world"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         android:layout_centerInParent="true"
+        android:text="Hello World!"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <!--import layout-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/upcoming_meals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upcoming Meals"
+            android:textSize="20sp" />
+
+        <include
+            android:id="@+id/recipe_card_breakfast"
+            layout="@layout/recipe_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <include
+            android:id="@+id/recipe_card_lunch"
+            layout="@layout/recipe_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+
+            />
+
+        <include
+            android:id="@+id/recipe_card_dinner"
+            layout="@layout/recipe_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Sign Out"
-        android:layout_below="@id/hello_world"/>
+        android:text="Sign Out" />
+
+    <!--    material fab-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_add" />
+
 
 </RelativeLayout>
