@@ -1,7 +1,9 @@
 import sys
+
 sys.path.append("../")
 
 from utils.helpers import connector
+
 
 class User:
     def __init__(self, user_id) -> None:
@@ -10,7 +12,7 @@ class User:
         self._user_info = self.__connector.get_user_info(user_id)
         self._user_vec_p = self.__connector.get_user_vec_p(user_id)
         self._user_vec_c = self.__connector.get_user_vec_c(user_id)
-    
+
     @property
     def user_vec_p(self):
         return self._user_vec_p
