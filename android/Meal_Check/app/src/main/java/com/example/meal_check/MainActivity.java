@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SignupActivity.class));
         });
 
+
+
         binding.signoutButton.setOnClickListener(view -> {
             // TODO : Signout
             mAuth.signOut();

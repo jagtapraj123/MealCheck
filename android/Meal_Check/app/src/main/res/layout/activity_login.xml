@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/signup_title"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
         android:layout_marginHorizontal="42dp"
         android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -87,8 +87,20 @@
             android:layout_marginTop="22dp"
             android:paddingVertical="12dp"
             android:text="@string/sign_in"
-            android:textSize="20sp"
             android:textAllCaps="false"
+            android:textSize="20sp"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="22dp"
+            android:paddingVertical="12dp"
+            android:text="@string/create_account"
+            android:textAllCaps="false"
+            android:textSize="20sp"
             app:cornerRadius="8dp" />
 
 
@@ -110,7 +122,6 @@
 
         <!--            app:iconPadding="10dp" />-->
     </LinearLayout>
-
 
 
 </RelativeLayout>

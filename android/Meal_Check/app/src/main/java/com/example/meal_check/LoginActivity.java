@@ -15,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,17 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
+
+        binding.signupButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, SignupActivity.class));
+        });
+
+
+
+
+
+
+
 
         binding.loginButton.setOnClickListener(view -> {
             // TODO : Login

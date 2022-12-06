@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,7 +69,10 @@ public class SignupActivity extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(SignupActivity.this, "Signup success", Toast.LENGTH_SHORT).show();
-//                                    TODO : Update UI
+                                    Intent intent = new Intent(SignupActivity.this, BoardingActivity.class);
+                                    String email = binding.email.getText().toString();
+                                    intent.putExtra("email", email);
+                                    startActivity(intent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
