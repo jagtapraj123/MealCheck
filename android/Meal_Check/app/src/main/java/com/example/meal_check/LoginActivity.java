@@ -1,0 +1,51 @@
+package com.example.meal_check;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.example.meal_check.databinding.ActivityLoginBinding;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
+
+public class LoginActivity extends AppCompatActivity {
+
+    ActivityLoginBinding binding;
+    FirebaseAuth mAuth;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
+
+//        check if user is already logged in
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+
+        binding.loginButton.setOnClickListener(view -> {
+            // TODO : Login
+
+            if (Objects.requireNonNull(binding.email.getText()).toString().isEmpty() || Objects.requireNonNull(binding.password.getText()).toString().isEmpty()) {
+                binding.email.setError("Please enter an email");
+                binding.password.setError("Please enter a password");
+            } else {
+                mAuth.signInWithEmailAndPassword(binding.email.getText().toString(), binding.password.getText().toString()).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(this, MainActivity.class));
+                    } else {
+                        binding.email.setError("Invalid email or password");
+                        binding.password.setError("Invalid email or password");
+                    }
+                });
+            }
+
+        });
+    }
+}

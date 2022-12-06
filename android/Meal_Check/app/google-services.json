@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "549694442155",
+    "project_id": "meal-check-fc13d",
+    "storage_bucket": "meal-check-fc13d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549694442155:android:2e55191cc900c960c885ee",
+        "android_client_info": {
+          "package_name": "com.example.meal_check"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549694442155-m43mq99hfocdmh058brbv72qgn7r6jjm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhOPYwQ1gbdoqUOFQjydLkuWb4gZyBcJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549694442155-m43mq99hfocdmh058brbv72qgn7r6jjm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

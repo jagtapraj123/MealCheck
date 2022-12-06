@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Meal_Check</string>
+    <string name="create_account">Create\nAccount</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_in">Sign In</string>
+</resources>
