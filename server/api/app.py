@@ -87,16 +87,11 @@ def get_all_users():
 def get_recipe_suggestions():
     try:
         request_data = json.loads(request.data)
-        suggestions = get_suggestions(request_data["email"],  request_data["lambda"])
+        suggestions = get_suggestions(request_data["email"], request_data["lambda"])
         return (
-                jsonify(
-                    {
-                        "status": "Sucess",
-                        "suggestions" : suggestions
-                    }
-                ),
-                200,
-            )
+            jsonify({"status": "Sucess", "suggestions": suggestions}),
+            200,
+        )
     except:
         abort(404)
 
@@ -110,34 +105,35 @@ def add_ratings():
             request_data["email"], request_data["recipe_id"], request_data["rating"]
         )
         return (
-                jsonify(
-                    {
-                        "status": "Sucess",
-                        "message": "Rating added!",
-                    }
-                ),
-                200,
-            )
+            jsonify(
+                {
+                    "status": "Sucess",
+                    "message": "Rating added!",
+                }
+            ),
+            200,
+        )
     except:
         abort(404)
+
 
 # set prefs
 @app.route("/set_prefs", methods=("GET", "POST"))
 def set_prefs():
     try:
         request_data = json.loads(request.data)
-        connector.set_user_prefs(request_data["email"], {
-            "prefs" : request_data["prefs"]
-        })
+        connector.set_user_prefs(
+            request_data["email"], {"prefs": request_data["prefs"]}
+        )
         return (
-                jsonify(
-                    {
-                        "status": "Sucess",
-                        "message": "Preferences Added!",
-                    }
-                ),
-                200,
-            )
+            jsonify(
+                {
+                    "status": "Sucess",
+                    "message": "Preferences Added!",
+                }
+            ),
+            200,
+        )
     except:
         abort(404)
 
@@ -146,9 +142,11 @@ def set_prefs():
 def reset_prefs():
     pass
 
+
 # livesearch
 def livesearch():
     pass
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

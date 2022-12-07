@@ -47,7 +47,7 @@ class MongoConnector:
                 "height": 1,
                 "goal": 1,
                 "activity_level": 1,
-                "prefs" : 1,
+                "prefs": 1,
             },
         )
 
@@ -62,27 +62,30 @@ class MongoConnector:
         return vec_c
 
     def set_user_info(self, user_id, user_info, upsert=False):
-        self.users.update_one({"email": user_id}, {"$set": user_info}, upsert=upsert)    
-    
+        self.users.update_one({"email": user_id}, {"$set": user_info}, upsert=upsert)
+
     def set_user_prefs(self, user_id, prefs, upsert=True):
         self.users.update_one({"email": user_id}, {"$set": prefs}, upsert=upsert)
-        vec_p = RecipeSpace.build_user_vec_p(user_id, prefs)
+        vec_p = RecipeSpace.getInstance().build_user_vec_p(prefs["prefs"])
         self.set_user_vec_p(user_id, vec_p)
 
     def set_user_vec_p(self, user_id, user_vec):
         vec_p = pickle.dumps(user_vec)
-        self.users.update_one({"email": user_id}, {"vec_p": vec_p})
+        self.users.update_one({"email": user_id}, {"$set": {"vec_p": vec_p}})
 
     def set_user_vec_c(self, user_id, user_vec):
         vec_c = pickle.dumps(user_vec)
-        self.users.update_one({"email": user_id}, {"vec_c": vec_c})
+        self.users.update_one({"email": user_id}, {"$set": {"vec_c": vec_c}})
 
     def add_recipe_rating(self, user_id, recipe_id: int, rating):
         recipe_ratings = self.users.find_one(
-            {"email": user_id}, { "_id":0, "recipe_ratings": 1}
+            {"email": user_id}, {"_id": 0, "recipe_ratings": 1}
         )
 
-        if "recipe_ratings" in recipe_ratings.keys() and len(recipe_ratings["recipe_ratings"]) >= PREV_RECORDS_LIMIT:
+        if (
+            "recipe_ratings" in recipe_ratings.keys()
+            and len(recipe_ratings["recipe_ratings"]) >= PREV_RECORDS_LIMIT
+        ):
             self.users.update_one(
                 {"email": user_id},
                 {
