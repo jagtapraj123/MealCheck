@@ -39,6 +39,7 @@ def get_suggestions(user_id: str, l: float, count: int = 10) -> list:
         r = recipe_space.get_recipe_from_id(s)
         recipes.append(
             {
+                "recipe_id": s,
                 "name": r["name"].title(),
                 "minutes": r["minutes"],
                 "steps": r["steps"],
