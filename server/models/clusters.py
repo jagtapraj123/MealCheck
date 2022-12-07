@@ -1,8 +1,8 @@
+from __future__ import annotations
 import sys
 
 sys.path.append("../")
 
-from __future__ import annotations
 import numpy as np
 import pickle
 from utils.constants import (
