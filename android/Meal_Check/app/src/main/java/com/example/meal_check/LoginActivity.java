@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.meal_check.databinding.ActivityLoginBinding;
@@ -26,6 +27,11 @@ public class LoginActivity extends AppCompatActivity {
 
 //        check if user is already logged in
         if (mAuth.getCurrentUser() != null) {
+            SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(Constants.EMAIL, Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
+            editor.apply();
+
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
@@ -34,12 +40,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, SignupActivity.class));
             finish();
         });
-
-
-
-
-
-
 
 
         binding.loginButton.setOnClickListener(view -> {

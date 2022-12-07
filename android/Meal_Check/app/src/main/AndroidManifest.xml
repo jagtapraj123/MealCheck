@@ -33,7 +33,7 @@
             android:name=".RecipeDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_recommendations"
-            android:theme="@style/Theme.Meal_Check.NoActionBar">
+            android:theme="@style/Theme.Meal_Check">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

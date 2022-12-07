@@ -14,20 +14,9 @@ public interface ApiEndpointInterface {
     @POST("create_user")
     Call<User> createUser(@Body User user);
 
-    @GET("users")
-    Call<User> getUser();
+    @POST("add_rating")
+    Call<JsonObject> addRating(@Body JsonObject rating);
 
-    @GET("users/{email}")
-    Call<User> getUserByEmail(@Path("email") String email);
-
-    @GET("activity/")
-    Call<JsonObject> boredActivity();
-
-
-    @GET("timezone/{area}/{location}")
-    Call<JsonObject> getTimezone(@Path("area") String area, @Path("location") String location);
-
-
-
-
+    @POST("get_suggestions")
+    Call<JsonObject> getSuggestions(@Body JsonObject user);
 }

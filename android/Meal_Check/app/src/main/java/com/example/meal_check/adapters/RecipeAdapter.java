@@ -1,5 +1,6 @@
 package com.example.meal_check.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.context = context;
         this.listener = listener;
     }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -76,6 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             tvDescription = itemView.findViewById(R.id.recipe_description);
             ivImage = itemView.findViewById(R.id.recipe_image);
             tvPrepTime = itemView.findViewById(R.id.prep_time);
+
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

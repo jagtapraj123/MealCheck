@@ -1,18 +1,29 @@
 package com.example.meal_check.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Recipe implements Serializable {
 
+    @SerializedName("recipe_id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("description")
     private String description;
+    @SerializedName("image_url")
     private String image;
-    private String ingredients;
+    @SerializedName("ingredients")
+    private ArrayList<String> ingredients;
+    @SerializedName("steps")
     private String instructions;
+    @SerializedName("minutes")
     private String prepTime;
 
-    public Recipe(int id, String name, String description, String image, String ingredients, String instructions, String prepTime) {
+
+    public Recipe(int id, String name, String description, String image, ArrayList<String> ingredients, String instructions, String prepTime) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,6 +32,16 @@ public class Recipe implements Serializable {
         this.instructions = instructions;
         this.prepTime = prepTime;
     }
+
+    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.prepTime = prepTime;
+    }
+
 
     public int getId() {
         return id;
@@ -54,11 +75,11 @@ public class Recipe implements Serializable {
         this.image = image;
     }
 
-    public String getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 

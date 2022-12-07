@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="300dp"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.Meal_Check.AppBarOverlay">
 
@@ -41,7 +41,6 @@
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="parallax"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-
                 app:popupTheme="@style/Theme.Meal_Check.PopupOverlay" />
 
 
@@ -59,6 +58,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:tooltipText="Rate this recipe"
+        app:srcCompat="@drawable/ic_review" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
