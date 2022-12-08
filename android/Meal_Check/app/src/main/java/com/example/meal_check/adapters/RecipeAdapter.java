@@ -69,15 +69,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName;
         private TextView tvDescription;
         private ImageView ivImage;
         private TextView tvPrepTime;
+        private TextView tvNutrition;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,7 +98,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         public void bind(Recipe recipe) {
             tvName.setText(recipe.getName());
             tvDescription.setText(recipe.getDescription());
-//            Glide.with(context).load(recipe.getImage()).into(ivImage);
+            String prepTime = recipe.getPrepTime() + " minutes";
+            tvPrepTime.setText(prepTime);
+            if (recipe.getImage() != null && !recipe.getImage().isEmpty()) {
+                Glide.with(context).load(recipe.getImage()).into(ivImage);
+            }
+
+
         }
     }
 }

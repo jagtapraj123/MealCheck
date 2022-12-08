@@ -12,8 +12,8 @@
         android:id="@+id/recipe_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
         android:elevation="10dp"
+        app:cardCornerRadius="10dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -27,30 +27,32 @@
             <ImageView
                 android:id="@+id/recipe_image"
                 android:layout_width="100dp"
-
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/recipe_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="Recipe Name"
                     android:textSize="20sp" />
 
                 <!--            prep time-->
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginVertical="8dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -64,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
+
                         android:text="@string/prep_time" />
 
 
@@ -73,7 +76,7 @@
                     android:id="@+id/recipe_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="@string/recipe_description"

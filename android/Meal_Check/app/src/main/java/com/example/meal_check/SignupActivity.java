@@ -1,26 +1,22 @@
 package com.example.meal_check;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.meal_check.databinding.ActivitySignupBinding;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 
-import java.util.List;
 import java.util.Objects;
 
 public class SignupActivity extends AppCompatActivity {
@@ -49,6 +45,8 @@ public class SignupActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+
+
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -68,9 +66,17 @@ public class SignupActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    String email = binding.email.getText().toString();
+
+                                    SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putString(Constants.EMAIL, email);
+                                    editor.apply();
+
+
                                     Toast.makeText(SignupActivity.this, "Signup success", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignupActivity.this, BoardingActivity.class);
-                                    String email = binding.email.getText().toString();
+
                                     intent.putExtra("email", email);
                                     startActivity(intent);
                                     finish();

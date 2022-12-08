@@ -21,7 +21,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
@@ -29,6 +28,7 @@
             android:id="@+id/upcoming_meals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Upcoming Meals"
             android:textSize="20sp" />
 
@@ -36,39 +36,133 @@
             android:id="@+id/upcoming_meals_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/recipe_item"
+            android:layout_marginTop="10dp"
             tools:itemCount="3"
-            android:layout_marginTop="10dp" />
+            tools:listitem="@layout/recipe_item" />
 
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/get_recommendations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/signout_button"
-        android:layout_centerInParent="true"
-        android:text="Get Recommendations"/>
+    <!--    <com.google.android.material.button.MaterialButton-->
+    <!--        android:id="@+id/get_recommendations"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@id/signout_button"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:text="Get Recommendations" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--    <com.google.android.material.button.MaterialButton-->
+    <!--        android:id="@+id/signout_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
 
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Sign Out" />
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:text="Sign Out" />-->
 
-    <!--    material fab-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.nambimobile.widgets.efab.ExpandableFabLayout
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
-        android:src="@drawable/ic_add" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentEnd="true">
 
+        <!-- The next 3 Views will only display in portrait orientation -->
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overlay_orientation="portrait" />
+
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            app:efab_icon="@drawable/ic_plus_white_24dp"
+            app:efab_orientation="portrait"
+            app:useCompatPadding="true" />
+
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/get_recommendations_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_like"
+            app:fab_orientation="portrait"
+            app:label_text="Get Recommendations" />
+
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/signout_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/logout"
+            app:fab_orientation="portrait"
+            app:label_text="Sign Out" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/set_preferences_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_preferences"
+            app:fab_orientation="portrait"
+            app:label_text="Set Preferences" />
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_margin="32dp"-->
+    <!--        android:src="@drawable/ic_add" />-->
+
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        android:weightSum="3">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:src="@drawable/home" />
+
+        <!--        divider-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000000" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_meal_plan" />
+
+        <!--        divider-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#000000" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/profile" />
+
+    </LinearLayout>
 
 </RelativeLayout>

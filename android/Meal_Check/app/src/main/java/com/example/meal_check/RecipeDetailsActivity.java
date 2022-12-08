@@ -6,8 +6,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-import com.example.meal_check.adapters.IngredientsAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.meal_check.databinding.ActivityRecipeDetailsBinding;
 import com.example.meal_check.models.Recipe;
 import com.example.meal_check.retrofit.Api;
@@ -18,20 +24,7 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.User;
 import com.google.gson.JsonObject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import java.util.List;
 
 import retrofit2.Call;
 
@@ -45,9 +38,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityRecipeDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
 //        Toolbar toolbar = binding.toolbar;
 //        setSupportActionBar(toolbar);
@@ -88,8 +81,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             binding.scrollLayout.instructionsList.setAdapter(itemsAdapter);
         }
         if (binding.scrollLayout.prepTime != null) {
-            String prepTime = recipe.getPrepTime() + " minutes";
+            String prepTime = recipe.getPrepTime() + " min";
             binding.scrollLayout.prepTime.setText(prepTime);
+        }
+        if (binding.scrollLayout.nutrition != null) {
+            String nutrition = String.valueOf(recipe.getNutrition()) + " cal";
+            binding.scrollLayout.nutrition.setText(nutrition);
         }
 
 

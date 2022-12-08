@@ -1,17 +1,15 @@
 package com.example.meal_check;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meal_check.databinding.ActivityBoardingBinding;
 import com.example.meal_check.models.User;
 import com.example.meal_check.retrofit.Api;
 import com.example.meal_check.retrofit.ApiEndpointInterface;
-import com.google.gson.JsonObject;
 
 import java.util.Objects;
 
@@ -29,6 +27,7 @@ public class BoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBoardingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         ApiEndpointInterface apiService = Api.getApi().create(ApiEndpointInterface.class);
 
@@ -63,7 +62,7 @@ public class BoardingActivity extends AppCompatActivity {
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(BoardingActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(BoardingActivity.this, MainActivity.class));
+                            startActivity(new Intent(BoardingActivity.this, PreferencesActivity.class));
                             finish();
                         }
                     }

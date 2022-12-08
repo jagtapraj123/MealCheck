@@ -24,7 +24,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_review" />
+                android:src="@drawable/ic_like_primary" />
 
             <TextView
                 android:id="@+id/tv_rate_recipe"
@@ -33,48 +33,73 @@
                 android:layout_below="@id/imageView"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
-                android:text="Rate this recipe"
+                android:text="How do you want your recipe compared to previous recipes?"
                 android:textAlignment="center"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
+            <!--            toggle button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <!--    slider-->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Different"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Similar"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:orientation="horizontal"-->
+                <!--                    android:weightSum="2">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Not a fan!"
-                        android:textSize="18sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:text="Not a fan!"-->
+                <!--                        android:textSize="18sp" />-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="Loved it!"
-                        android:textSize="18sp" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="0dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="end"-->
+                <!--                        android:layout_weight="1"-->
+                <!--                        android:gravity="end"-->
+                <!--                        android:text="Loved it!"-->
+                <!--                        android:textSize="18sp" />-->
 
-                </LinearLayout>
+                <!--                </LinearLayout>-->
 
                 <com.google.android.material.slider.Slider
-                    android:id="@+id/rating_slider"
+                    android:id="@+id/slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stepSize="1"
                     android:value="3"
                     android:valueFrom="1"
                     android:valueTo="5" />

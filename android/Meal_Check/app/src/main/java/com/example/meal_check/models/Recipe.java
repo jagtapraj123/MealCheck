@@ -13,7 +13,7 @@ public class Recipe implements Serializable {
     private String name;
     @SerializedName("description")
     private String description;
-    @SerializedName("image_url")
+    @SerializedName("image")
     private String image;
     @SerializedName("ingredients")
     private ArrayList<String> ingredients;
@@ -21,9 +21,11 @@ public class Recipe implements Serializable {
     private String instructions;
     @SerializedName("minutes")
     private String prepTime;
+    @SerializedName("nutrition")
+    private double nutrition;
 
 
-    public Recipe(int id, String name, String description, String image, ArrayList<String> ingredients, String instructions, String prepTime) {
+    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime, String image, double nutrition) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,16 +33,18 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.prepTime = prepTime;
+        this.nutrition = nutrition;
     }
-
-    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
-        this.prepTime = prepTime;
-    }
+//
+//    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime, double nutrition) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.ingredients = ingredients;
+//        this.instructions = instructions;
+//        this.prepTime = prepTime;
+//        this.nutrition = nutrition;
+//    }
 
 
     public int getId() {
@@ -97,5 +101,13 @@ public class Recipe implements Serializable {
 
     public void setPrepTime(String prepTime) {
         this.prepTime = prepTime;
+    }
+
+    public double getNutrition() {
+        return nutrition;
+    }
+
+    public void setNutrition(double nutrition) {
+        this.nutrition = nutrition;
     }
 }

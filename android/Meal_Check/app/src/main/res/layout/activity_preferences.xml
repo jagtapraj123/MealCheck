@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PreferencesActivity">
+
+
+    <!--    edit text with icon-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:hint="@string/search_preferences"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="4dp"
+        app:boxCornerRadiusBottomStart="4dp"
+        app:boxCornerRadiusTopEnd="4dp"
+        app:boxCornerRadiusTopStart="4dp"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeWidth="1dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:startIconDrawable="@drawable/ic_search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:inputType="text"
+            android:paddingVertical="12dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/search_input_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:hint="Search Preferences"-->
+<!--        app:boxBackgroundColor="@color/white"-->
+<!--        app:boxBackgroundMode="outline"-->
+<!--        app:boxCornerRadiusBottomEnd="4dp"-->
+<!--        app:boxCornerRadiusBottomStart="4dp"-->
+<!--        app:boxCornerRadiusTopEnd="4dp"-->
+<!--        app:boxCornerRadiusTopStart="4dp"-->
+<!--        app:boxStrokeColor="@color/colorPrimary"-->
+<!--        app:boxStrokeWidth="1dp"-->
+<!--        app:counterEnabled="true"-->
+<!--        app:counterMaxLength="30"-->
+<!--        app:hintAnimationEnabled="true"-->
+<!--        app:hintEnabled="true"-->
+<!--        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"-->
+<!--        app:startIconDrawable="@drawable/ic_search">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/search_input_edit_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="text" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_preferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_input_layout"
+        android:layout_marginHorizontal="10dp"
+
+        android:text="Submit Preferences" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPreferences"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/submit_preferences"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/search_row" />
+
+</RelativeLayout>
