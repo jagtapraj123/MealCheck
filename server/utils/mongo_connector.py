@@ -142,7 +142,7 @@ class MongoConnector:
         self.users.update_one(
             {"email": user_id},
             {
-                "$push": {nested_key: {"recipe_id": recipe_id}},
+                "$push": {nested_key: recipe_id},
             },
         )
 

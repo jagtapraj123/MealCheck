@@ -16,4 +16,4 @@ def remove_stop_words(s: str) -> list:
 
 
 def lambda_scaling(l: float):
-    return 1.5 * l / 5 + 2
+    return  l / 5 + 2.5

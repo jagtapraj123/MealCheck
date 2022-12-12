@@ -53,12 +53,7 @@ class User:
     @property
     def todays_meals(self):
         if self._todays_meals is None:
-            self._todays_meals = list(
-                map(
-                    lambda r: r["recipe_id"],
-                    self.__connector.get_todays_meals(self._user_id),
-                )
-            )
+            self._todays_meals = self.__connector.get_todays_meals(self._user_id)
         return self._todays_meals.copy()
 
     @property
