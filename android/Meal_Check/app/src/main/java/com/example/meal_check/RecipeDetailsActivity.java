@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.meal_check.databinding.ActivityRecipeDetailsBinding;
 import com.example.meal_check.models.Recipe;
 import com.example.meal_check.retrofit.Api;
@@ -56,6 +57,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 //        get recipe from intent
         Recipe recipe = (Recipe) intent.getSerializableExtra("recipe");
         Log.d(TAG, "onCreate: " + recipe);
+
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         Snackbar.make(binding.getRoot(), recipe.getName(), Snackbar.LENGTH_LONG).show();
         toolBarLayout.setTitle(recipe.getName());
@@ -88,6 +90,15 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             String nutrition = String.valueOf(recipe.getNutrition()) + " cal";
             binding.scrollLayout.nutrition.setText(nutrition);
         }
+        if (recipe.getImage() != null) {
+            Glide.with(this)
+                    .load(recipe.getImage())
+                    .into(binding.recipeImage);
+        }
+
+        Glide.with(this)
+                .load(recipe.getImage())
+                .into(binding.recipeImage);
 
 
         FloatingActionButton fab = binding.fab;

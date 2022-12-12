@@ -9,8 +9,9 @@ public class User {
     private int age;
     private int goal;
     private String activity_level;
+    private String gender;
 
-    public User(String email, String name, int height, int weight, int age, int goal, String activity_level) {
+    public User(String email, String name, int height, int weight, int age, int goal, String activity_level, String gender) {
         this.email = email;
         this.name = name;
         this.height = height;
@@ -18,5 +19,6 @@ public class User {
         this.age = age;
         this.goal = goal;
         this.activity_level = activity_level;
+        this.gender = gender;
     }
 }

@@ -10,12 +10,12 @@
         android:id="@+id/signup_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+
         android:layout_alignParentTop="true"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"
         android:text="@string/create_account"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/signup_title"
         android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
         android:layout_marginHorizontal="42dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <!--            outlined text field-->
@@ -89,28 +89,28 @@
             android:layout_marginTop="22dp"
             android:paddingVertical="12dp"
             android:text="Signup"
-            android:textSize="20sp"
             android:textAllCaps="false"
+            android:textSize="20sp"
             app:cornerRadius="8dp" />
 
 
         <!--create a button with icon-->
 
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/google_signup_button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:paddingVertical="12dp"-->
-<!--            android:text="Signup with Google"-->
-<!--            android:textSize="16sp"-->
-<!--            app:cornerRadius="8dp"-->
-<!--            app:icon="@drawable/google_icon"-->
-<!--            app:iconTint="@null"-->
-<!--            app:iconGravity="textStart"-->
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/google_signup_button"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:paddingVertical="12dp"-->
+        <!--            android:text="Signup with Google"-->
+        <!--            android:textSize="16sp"-->
+        <!--            app:cornerRadius="8dp"-->
+        <!--            app:icon="@drawable/google_icon"-->
+        <!--            app:iconTint="@null"-->
+        <!--            app:iconGravity="textStart"-->
 
-<!--            app:iconPadding="10dp" />-->
+        <!--            app:iconPadding="10dp" />-->
     </LinearLayout>
 
 

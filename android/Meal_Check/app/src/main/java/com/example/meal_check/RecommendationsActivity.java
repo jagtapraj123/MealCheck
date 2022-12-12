@@ -9,7 +9,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.example.meal_check.adapters.RecipeAdapter;
 import com.example.meal_check.databinding.ActivityRecommendationsBinding;
 import com.example.meal_check.models.Recipe;
@@ -20,7 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -110,8 +108,11 @@ public class RecommendationsActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
                         recipes.add(recipe);
-
                     }
+                    if (recipes.size() == 0) {
+                        binding.noRecommendationsTextview.setVisibility(View.VISIBLE);
+                    } else
+                        binding.noRecommendationsTextview.setVisibility(View.GONE);
 
 
                     RecipeAdapter adapter = (RecipeAdapter) binding.recyclerView.getAdapter();

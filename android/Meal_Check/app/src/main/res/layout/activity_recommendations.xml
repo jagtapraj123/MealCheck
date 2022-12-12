@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
         android:text="Recommendations"
         android:textSize="32sp"
         android:visibility="visible"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,15 @@
         android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:src="@drawable/loading"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/no_recommendations_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No recommendations available"
+        android:textSize="20sp"
         android:visibility="gone" />
 
     <!--    recyclerview-->

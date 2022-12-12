@@ -2,6 +2,8 @@ package com.example.meal_check;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,15 +47,24 @@ public class BoardingActivity extends AppCompatActivity {
                 binding.age.setError("Age is required");
             else if (Objects.requireNonNull(binding.goal.getText()).toString().isEmpty())
                 binding.goal.setError("Target weight is required");
-            else {
+            else if (!binding.male.isChecked() && !binding.female.isChecked()) {
+                Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
+            } else {
 
                 String name = binding.name.getText().toString();
                 int height = Integer.parseInt(binding.height.getText().toString());
                 int weight = Integer.parseInt(binding.weight.getText().toString());
                 int age = Integer.parseInt(binding.age.getText().toString());
                 int goal = Integer.parseInt(binding.goal.getText().toString());
+//                get checked radio button in the group
+                View radiobutton = findViewById(binding.radioGroup.getCheckedRadioButtonId());
+                int index = binding.radioGroup.indexOfChild(radiobutton);
 
-                User user = new User(email, name, height, weight, age, goal, "Moderate");
+                RadioButton button = (RadioButton) binding.radioGroup.getChildAt(index);
+
+                String gender = button.getText().toString();
+
+                User user = new User(email, name, height, weight, age, goal, "Moderate", gender);
 
                 Call<User> call = apiService.createUser(user);
 

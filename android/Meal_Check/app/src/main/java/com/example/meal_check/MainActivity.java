@@ -2,10 +2,12 @@ package com.example.meal_check;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -15,18 +17,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.meal_check.adapters.RecipeAdapter;
 import com.example.meal_check.databinding.ActivityMainBinding;
 import com.example.meal_check.models.Recipe;
+import com.example.meal_check.retrofit.Api;
+import com.example.meal_check.retrofit.ApiEndpointInterface;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     FirebaseAuth mAuth;
     private float[] lambda;
+    ApiEndpointInterface apiEndpointInterface;
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +49,39 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         lambda = new float[1];
-        lambda[0] = 5;
+        lambda[0] = 3.6f;
 
         findViewById(R.id.hello_world).setOnClickListener(view -> {
             startActivity(new Intent(this, SignupActivity.class));
+        });
+
+        apiEndpointInterface = Api.getApi().create(ApiEndpointInterface.class);
+
+        JsonObject jsonObject = new JsonObject();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
+        String email = sharedPreferences.getString(Constants.EMAIL, "");
+        jsonObject.addProperty("email", email);
+        apiEndpointInterface.getUser(jsonObject).enqueue(new retrofit2.Callback<JsonObject>() {
+            @Override
+            public void onResponse(retrofit2.Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                if (response.code() == 403) {
+                    Intent intent = new Intent(MainActivity.this, BoardingActivity.class);
+                    intent.putExtra("email", email);
+                    startActivity(intent);
+                    finish();
+                } else if (response.body() != null) {
+                    Log.d(TAG, "onResponse: " + response.body());
+                    if (response.body().get("prefs") == null) {
+                        startActivity(new Intent(MainActivity.this, PreferencesActivity.class));
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<JsonObject> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
         });
 
         Dialog dialog = new Dialog(this);
@@ -56,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.signoutFab.setOnClickListener(view -> {
-//            TODO
             mAuth.signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -64,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding.setPreferencesFab.setOnClickListener(view -> {
             startActivity(new Intent(this, PreferencesActivity.class));
+        });
+
+        binding.addMealFab.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PreferencesActivity.class);
+            intent.putExtra("addMeal", true);
+            startActivity(intent);
         });
 
         ArrayList<Recipe> recipes = new ArrayList<>();
@@ -88,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         "3. Bake in preheated oven for 25 to 30 minutes, or until crust is golden brown and cheese is bubbly.",
                 "30 minutes", "", 500));
 
+
         RecipeAdapter adapter = new RecipeAdapter(recipes, this);
         binding.upcomingMealsRecyclerView.setAdapter(adapter);
         binding.upcomingMealsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -98,6 +146,60 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("recipe", recipes.get(position));
             startActivity(intent);
         });
+
+//        get today's day
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+//        get monday, tuesday, wednesday, thursday, friday, saturday, sunday
+        String[] days = new DateFormatSymbols().getWeekdays();
+        String today = days[day];
+
+        today = today.toLowerCase();
+
+        Log.d(TAG, "onCreate: today: " + today);
+
+
+        JsonObject mealPlanObject = new JsonObject();
+        mealPlanObject.addProperty("email", email);
+        mealPlanObject.addProperty("day", today);
+        Log.d(TAG, "onCreate: email: " + email);
+
+
+        Log.d(TAG, "onCreate: json: " + mealPlanObject.toString());
+
+        Call<JsonObject> suggestions = apiEndpointInterface.getMealPlan(mealPlanObject);
+
+        suggestions.enqueue(new retrofit2.Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                Log.d(TAG, "onResponse: " + jsonObject);
+                recipes.clear();
+                if (jsonObject != null) {
+                    for (int i = 0; i < jsonObject.get("meals").getAsJsonArray().size(); i++) {
+                        JsonObject recipeJson = jsonObject.get("meals").getAsJsonArray().get(i).getAsJsonObject();
+                        Gson gson = new Gson();
+                        Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
+                        recipes.add(recipe);
+
+                    }
+
+
+                    adapter.updateRecipes(recipes);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+                Snackbar.make(binding.getRoot(), "Failed to get meals", Snackbar.LENGTH_SHORT).show();
+                finish();
+            }
+
+
+        });
+
 
     }
 
@@ -126,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
 
             Intent intent = new Intent(MainActivity.this, RecommendationsActivity.class);
-            intent.putExtra("lambda", lambda[0]);
+            intent.putExtra("lambda", 5 - lambda[0]);
             startActivity(intent);
         });
 

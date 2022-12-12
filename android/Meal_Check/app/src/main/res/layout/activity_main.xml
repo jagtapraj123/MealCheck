@@ -24,13 +24,22 @@
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thursday"
+            android:textSize="26sp" />
+
         <TextView
             android:id="@+id/upcoming_meals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Upcoming Meals"
+            android:text="Today's Meal Plan"
             android:textSize="20sp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upcoming_meals_recycler_view"
@@ -86,6 +95,15 @@
 
 
         <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/signout_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/logout"
+            app:fab_orientation="portrait"
+            app:label_text="Sign Out" />
+
+
+        <com.nambimobile.widgets.efab.FabOption
             android:id="@+id/get_recommendations_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,20 +113,20 @@
 
 
         <com.nambimobile.widgets.efab.FabOption
-            android:id="@+id/signout_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/logout"
-            app:fab_orientation="portrait"
-            app:label_text="Sign Out" />
-
-        <com.nambimobile.widgets.efab.FabOption
             android:id="@+id/set_preferences_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_preferences"
             app:fab_orientation="portrait"
             app:label_text="Set Preferences" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/add_meal_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
+            app:fab_orientation="portrait"
+            app:label_text="Add a meal" />
     </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
 

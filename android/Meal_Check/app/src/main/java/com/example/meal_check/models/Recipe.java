@@ -35,7 +35,18 @@ public class Recipe implements Serializable {
         this.prepTime = prepTime;
         this.nutrition = nutrition;
     }
-//
+
+    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime, double nutrition) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.prepTime = prepTime;
+        this.nutrition = nutrition;
+    }
+
+    //
 //    public Recipe(int id, String name, String description, ArrayList<String> ingredients, String instructions, String prepTime, double nutrition) {
 //        this.id = id;
 //        this.name = name;
