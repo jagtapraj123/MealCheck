@@ -21,7 +21,6 @@ import retrofit2.Response;
 
 public class BoardingActivity extends AppCompatActivity {
 
-    private static final String TAG = "BoardingActivity";
     ActivityBoardingBinding binding;
 
     @Override

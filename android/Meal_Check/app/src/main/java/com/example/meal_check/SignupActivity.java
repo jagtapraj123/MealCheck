@@ -30,7 +30,6 @@ public class SignupActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-//            TODO : Update UI
             finish();
         }
     }
@@ -41,7 +40,6 @@ public class SignupActivity extends AppCompatActivity {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
 
         mAuth = FirebaseAuth.getInstance();
 

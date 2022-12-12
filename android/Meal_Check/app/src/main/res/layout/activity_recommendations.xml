@@ -24,10 +24,21 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/loading_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/getting_meal_plan"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loading_image"
+        android:layout_centerHorizontal="true"
+        android:text="Getting your recommendations..."
+        android:textColor="#000000"
         android:visibility="gone" />
 
     <TextView

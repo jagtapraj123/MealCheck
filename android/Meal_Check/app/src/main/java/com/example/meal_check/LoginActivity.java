@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
-//        check if user is already logged in
         if (mAuth.getCurrentUser() != null) {
             SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();

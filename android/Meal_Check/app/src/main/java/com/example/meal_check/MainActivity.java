@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -32,14 +34,16 @@ import java.util.Calendar;
 import java.util.Collections;
 
 import retrofit2.Call;
+import retrofit2.HttpException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
-    FirebaseAuth mAuth;
-    private float[] lambda;
-    ApiEndpointInterface apiEndpointInterface;
     private final String TAG = "MainActivity";
+    FirebaseAuth mAuth;
+    ApiEndpointInterface apiEndpointInterface;
+    private ActivityMainBinding binding;
+    private float[] lambda;
+    private ArrayList<Recipe> recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         lambda = new float[1];
-        lambda[0] = 3.6f;
+        lambda[0] = 2.6f;
 
         findViewById(R.id.hello_world).setOnClickListener(view -> {
             startActivity(new Intent(this, SignupActivity.class));
@@ -80,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(retrofit2.Call<JsonObject> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onFailure: " + t.getMessage());
+//                red color snackbar
+                Toast.makeText(MainActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(binding.getRoot(), "Something went wrong...", Snackbar.LENGTH_LONG);
+                snackbar.setBackgroundTint(Color.RED);
+                snackbar.show();
+
+//                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        ArrayList<Recipe> recipes = new ArrayList<>();
+        recipes = new ArrayList<>();
         recipes.add(new Recipe(1, "Chicken Parmesan", "Chicken Parmesan is a dish of chicken cutlet, topped with tomato sauce and melted cheese, and baked in an oven. It is a variation of the Italian dish parmigiana di melanzane, which uses eggplant instead of chicken. It is a popular dish in the United States, where it is often served with spaghetti or linguine.",
                 new ArrayList<String>(Arrays.asList("Chicken", "Parmesan", "Cheese", "Tomato Sauce", "Spaghetti", "Linguine")),
                 "1. Preheat oven to 350 degrees F (175 degrees C). Lightly grease a 9x13 inch baking dish.\n" +
@@ -155,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         String[] days = new DateFormatSymbols().getWeekdays();
         String today = days[day];
 
+        binding.day.setText(today);
         today = today.toLowerCase();
 
         Log.d(TAG, "onCreate: today: " + today);
@@ -170,37 +182,80 @@ public class MainActivity extends AppCompatActivity {
 
         Call<JsonObject> suggestions = apiEndpointInterface.getMealPlan(mealPlanObject);
 
-        suggestions.enqueue(new retrofit2.Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
-                JsonObject jsonObject = response.body();
-                Log.d(TAG, "onResponse: " + jsonObject);
-                recipes.clear();
-                if (jsonObject != null) {
-                    for (int i = 0; i < jsonObject.get("meals").getAsJsonArray().size(); i++) {
-                        JsonObject recipeJson = jsonObject.get("meals").getAsJsonArray().get(i).getAsJsonObject();
-                        Gson gson = new Gson();
-                        Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
-                        recipes.add(recipe);
+        binding.linearLayout.setVisibility(View.GONE);
+        binding.gifImageView.setVisibility(View.VISIBLE);
+        binding.gettingMeals.setVisibility(View.VISIBLE);
 
+
+        retryMealPlan(suggestions, adapter);
+
+
+    }
+
+    private void retryMealPlan(Call<JsonObject> suggestions, RecipeAdapter adapter) {
+//
+////        check if suggestions is enqueue
+//        if (suggestions.isExecuted())
+//            suggestions.cancel();
+//
+////        wait till suggestions is cancelled
+//        while (suggestions.isExecuted() && !suggestions.isCanceled()) {
+//            Log.d(TAG, "retryMealPlan: waiting");
+//        }
+
+        suggestions.clone()
+                .enqueue(new retrofit2.Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+
+
+                        if (response.code() == 404) {
+                            Toast.makeText(MainActivity.this, "Be patient, generating plan...", Toast.LENGTH_SHORT).show();
+                            new Handler().postDelayed(() -> retryMealPlan(suggestions, adapter), 5000);
+                        } else {
+
+
+                            binding.linearLayout.setVisibility(View.VISIBLE);
+                            binding.gifImageView.setVisibility(View.GONE);
+                            binding.gettingMeals.setVisibility(View.GONE);
+
+                            JsonObject jsonObject = response.body();
+                            Log.d(TAG, "onResponse: " + jsonObject);
+                            recipes.clear();
+                            if (jsonObject != null) {
+                                for (int i = 0; i < jsonObject.get("meals").getAsJsonArray().size(); i++) {
+                                    JsonObject recipeJson = jsonObject.get("meals").getAsJsonArray().get(i).getAsJsonObject();
+                                    Gson gson = new Gson();
+                                    Recipe recipe = gson.fromJson(recipeJson, Recipe.class);
+                                    recipes.add(recipe);
+                                }
+
+
+                                adapter.updateRecipes(recipes);
+                            }
+                        }
                     }
 
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
 
-                    adapter.updateRecipes(recipes);
-                }
-            }
+//                if 404 error, then retry
+                        if (t instanceof HttpException) {
+                            HttpException exception = (HttpException) t;
+                            if (exception.code() == 404) {
+                                new Handler().postDelayed(() -> retryMealPlan(suggestions, adapter), 5000);
+                            }
+                        } else {
+                            binding.linearLayout.setVisibility(View.VISIBLE);
+                            binding.gifImageView.setVisibility(View.GONE);
+                            binding.gettingMeals.setVisibility(View.GONE);
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-                Snackbar.make(binding.getRoot(), "Failed to get meals", Snackbar.LENGTH_SHORT).show();
-                finish();
-            }
-
-
-        });
-
-
+                            Log.e(TAG, "onFailure: ", t);
+                            Snackbar.make(binding.getRoot(), "Failed to get meals", Snackbar.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+                });
     }
 
     private void iniDialog(Dialog dialog) {

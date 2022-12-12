@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/getting_meal_plan" />
+
+    <TextView
+        android:id="@+id/getting_meals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gifImageView"
+        android:layout_centerHorizontal="true"
+        android:text="Getting your meal plan..."
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/hello_world"
         android:layout_width="wrap_content"
@@ -19,6 +38,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -26,6 +47,7 @@
 
 
         <TextView
+            android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -1,7 +1,6 @@
 package com.example.meal_check.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meal_check.R;
-import com.example.meal_check.models.Recipe;
 
 import java.util.ArrayList;
 

@@ -98,7 +98,7 @@
 
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:inputType="textEmailAddress"
+                    android:inputType="number"
                     android:paddingVertical="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:inputType="textEmailAddress"
+                    android:inputType="numberDecimal"
                     android:paddingVertical="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:inputType="textEmailAddress"
+                    android:inputType="numberDecimal"
                     android:paddingVertical="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:inputType="textEmailAddress"
+                    android:inputType="numberDecimal"
                     android:paddingVertical="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>

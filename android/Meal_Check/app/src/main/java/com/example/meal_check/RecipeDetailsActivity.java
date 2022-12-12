@@ -42,10 +42,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         binding = ActivityRecipeDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-//        Toolbar toolbar = binding.toolbar;
-//        setSupportActionBar(toolbar);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         assert user != null;
@@ -54,7 +50,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         ApiEndpointInterface apiEndpointInterface = Api.getApi().create(ApiEndpointInterface.class);
 
         Intent intent = getIntent();
-//        get recipe from intent
         Recipe recipe = (Recipe) intent.getSerializableExtra("recipe");
         Log.d(TAG, "onCreate: " + recipe);
 
@@ -68,15 +63,12 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         if (binding.scrollLayout.ingredientsList != null) {
 
             Log.d(TAG, "onCreate: ingredients" + recipe.getIngredients());
-//            convert array list to list
             ArrayAdapter<String> itemsAdapter =
                     new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, recipe.getIngredients());
             binding.scrollLayout.ingredientsList.setAdapter(itemsAdapter);
         }
         if (binding.scrollLayout.instructionsList != null) {
-//            binding.scrollLayout.recipeInstructions.setText(recipe.getInstructions());
             String instructions = recipe.getInstructions();
-//            split instructions by new line
             String[] instructionsArray = instructions.split("\\r?\\n");
             ArrayAdapter<String> itemsAdapter =
                     new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, instructionsArray);
@@ -110,7 +102,6 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
-//            show a dialog
             dialog.setContentView(R.layout.rating_dialog);
             ColorDrawable back = new ColorDrawable(Color.TRANSPARENT);
             InsetDrawable inset = new InsetDrawable(back, 20, 0, 20, 0);
@@ -156,11 +147,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Rating cancelled", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             });
-
-
             dialog.show();
         });
-
-
     }
 }
