@@ -40,10 +40,19 @@ class RecipeClusters:
 
         self._cluster_assigns = np.load(cluster_assigns)
         self._cluster_centers = np.load(cluster_centers)
+        # temp = (self._cluster_centers - self._cluster_centers[3])
+        # maxans = 0
+        # for i in range(temp.shape[0]):
+        #     maxans = max(maxans, np.sqrt(np.dot(temp[i], temp[i])))
+        # print(maxans)
         RecipeClusters.__instance = self
 
     def get_nearby_clusters(self, vec: np.ndarray, radius: float) -> set:
-        return set(np.where(self._clusters.transform(vec) < radius)[0])
+        # print(self._clusters.transform([vec]))
+        return set(np.where(self._clusters.transform([vec])[0] < radius * radius)[0])
 
     def get_recipes(self, cluster_id: int):
         return set(np.where(self._cluster_assigns == cluster_id)[0])
+
+
+clusters = RecipeClusters.getInstance()

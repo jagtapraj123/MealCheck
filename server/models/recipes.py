@@ -5,8 +5,8 @@ sys.path.append("../")
 import pandas as pd
 from gensim.models.doc2vec import Doc2Vec
 
+from models.nv import nv
 from utils.constants import RECIPES_SPACE_MODEL_PATH, RAW_RECIPES_PATH, BETA
-from tqdm import tqdm
 import numpy as np
 
 
@@ -31,10 +31,26 @@ class RecipeSpace:
 
         self._recipes = pd.read_csv(RAW_RECIPES_PATH)
 
+        self._recipe_names = []
+        for r in self._recipes.index:
+            # print(r, data.loc[r, "name"])
+            self._recipe_names.append(
+                {
+                    "recipe_id": r,
+                    "name": (
+                        " ".join(str(self._recipes.loc[r, "name"]).split())
+                    ).lower(),
+                }
+            )
+
         self._recipes["steps"] = self._recipes["steps"].apply(
-            lambda r: " ".join(
+            lambda r: ", ".join(
                 list(map(lambda x: x.strip("'"), r.strip("[]").split(", ")))
             )
+        )
+
+        self._recipes["ingredients"] = self._recipes["ingredients"].apply(
+            lambda r: list(map(lambda x: x.strip("'"), r.strip("[]").split(", ")))
         )
 
         RecipeSpace.__instance = self
@@ -61,9 +77,10 @@ class RecipeSpace:
         return vec_c
 
     def update_user_vec_p(self, vec_p, count, recipe_id, rating):
-        vec_p = vec_p * (count / (count + 1)) + rating * self._model.dv.get_vector(
-            recipe_id
-        ) / (count + 1)
+        vec_p = (
+            vec_p * rating * (count / (count + 1))
+            + rating * self._model.dv.get_vector(recipe_id) / (count + 1)
+        ) / rating
         return vec_p
 
     def update_user_vec_c(self, vec_c, recipe_id):
@@ -71,3 +88,29 @@ class RecipeSpace:
             recipe_id, norm=False
         )
         return vec_c
+
+    def get_recipes_matching_str(self, s: str):
+        matched = []
+        # nv = NV.getInstance()
+        for rn in self._recipe_names:
+            if s in rn["name"]:
+                r = self.get_recipe_from_id(rn["recipe_id"])
+                matched.append(
+                    {
+                        "recipe_id": int(rn["recipe_id"]),
+                        "name": str(r["name"].title()),
+                        "minutes": str(r["minutes"]),
+                        "steps": str(r["steps"]),
+                        "ingredients": r["ingredients"],
+                        "description": r["description"],
+                        "nutrition": float(nv.get_nutrition(rn["recipe_id"])),
+                        "image": "https://img.delicious.com.au/XOkfl61w/del/2020/12/lemon-chicken-144144-1.jpg",
+                    }
+                )
+                if len(matched) >= 10:
+                    break
+        return matched
+        # return list(filter(lambda r: s in r["name"], self._recipe_names))[:10]
+
+
+rspace = RecipeSpace.getInstance()

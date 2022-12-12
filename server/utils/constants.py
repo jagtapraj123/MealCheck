@@ -192,6 +192,6 @@ RECIPES_SPACE_CLUSTERS_CENTERS_PATH = "../saved_models/cluster_centers.npy"
 
 RECIPES_SPACE_CLUSTERS_PATH = "../saved_models/clusters.pkl"
 
-PREV_RECORDS_LIMIT = 21
+PREV_RECORDS_LIMIT = 1000
 
 BETA = 0.2
