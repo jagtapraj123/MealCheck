@@ -13,6 +13,8 @@ from models.recipes import rspace
 import pandas as pd
 from multiprocessing import Process
 
+from utils.constants import RAW_RECIPES_PATH
+
 
 app = Flask(__name__)
 
@@ -205,7 +207,7 @@ def get_recipes():
 
 @app.route("/get_all_recipes", methods=("GET", "POST"))
 def get_all_recipes():
-    data = pd.read_csv("../../dataset/RAW_recipes.csv")
+    data = pd.read_csv(RAW_RECIPES_PATH)
 
     json_data = {"recipes": []}
 

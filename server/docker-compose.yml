@@ -1,0 +1,76 @@
+version: '1'
+services:
+
+  meal_check_flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meal_check_flask
+    image: meal_check_flask_python:3.9
+    restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "False"
+      APP_PORT: 8000
+      MONGODB_DATABASE: meal_check
+      MONGODB_USERNAME: rjagtap
+      MONGODB_PASSWORD: jag_raj4321
+      MONGODB_HOSTNAME: meal_check_mongodb
+    volumes:
+      - meal_check_appdata:/var/www
+    depends_on:
+      - meal_check_mongodb
+    networks:
+      - meal_check_frontend
+      - meal_check_backend
+
+  meal_check_mongodb:
+    image: mongo:5.0.14
+    container_name: meal_check_mongodb
+    restart: unless-stopped
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rjagtap
+      MONGO_INITDB_ROOT_PASSWORD: jag_raj4321
+      MONGO_INITDB_DATABASE: meal_check
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+    volumes:
+      - $PWD/../data/meal_check_mongodbdata:/data/db
+    networks:
+      - meal_check_backend
+
+  meal_check_webserver:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    image: meal_check_nginx:1.13.7
+    container_name: meal_check_webserver
+    restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_NAME: "meal_check_webserver"
+      APP_DEBUG: "false"
+      SERVICE_NAME: "meal_check_webserver"
+    ports:
+      - "2080:80"
+    volumes:
+      - meal_check_nginxdata:/var/log/nginx
+    depends_on:
+      - meal_check_flask
+    networks:
+      - meal_check_frontend
+
+networks:
+  meal_check_frontend:
+    driver: bridge
+  meal_check_backend:
+    driver: bridge
+
+volumes:
+  meal_check_mongodbdata:
+    driver: local
+  meal_check_appdata:
+    driver: local
+  meal_check_nginxdata:
+    driver: local

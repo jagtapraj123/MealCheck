@@ -7,7 +7,7 @@ import pickle
 from models.recipes import rspace
 import numpy as np
 from datetime import date, datetime
-from utils.constants import PREV_RECORDS_LIMIT
+from utils.constants import PREV_RECORDS_LIMIT, MONGO_URI
 
 
 class MongoConnector:
@@ -23,7 +23,7 @@ class MongoConnector:
         if MongoConnector.__instance is not None:
             raise Exception("This class is a singleton!")
         else:
-            self.mongo_client = MongoClient("localhost", 27017)
+            self.mongo_client = MongoClient(MONGO_URI)
             self.db = self.mongo_client.meal_check
             self.users = self.db.users
             MongoConnector.__instance = self
